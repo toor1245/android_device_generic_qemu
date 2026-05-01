@@ -1,0 +1,15 @@
+on fs
+    mount_all /vendor/etc/fstab.qemu
+
+on boot
+    setprop service.adb.tcp.port 5555
+    start adbd
+
+    setprop sys.boot_completed 1
+
+service dhcp_eth0 /system/bin/dhcpdbg eth0
+    class core
+    oneshot
+    user root
+    group root
+    seclabel u:r:su:s0
