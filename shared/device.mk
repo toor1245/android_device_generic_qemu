@@ -4,7 +4,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 
 PRODUCT_COPY_FILES += \
-    device/generic/qemu/prebuilts/$(TARGET_ARCH)/android16-6.13.img:kernel \
     device/generic/qemu/shared/fstab.qemu:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qemu \
     device/generic/qemu/shared/fstab.qemu:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/fstab.qemu \
     device/generic/qemu/shared/fstab.qemu:$(TARGET_COPY_OUT_RAMDISK)/fstab.qemu \

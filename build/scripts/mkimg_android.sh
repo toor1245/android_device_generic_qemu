@@ -50,7 +50,7 @@ $SGDISK \
   --new=12:0:+1M       --change-name=12:"vbmeta_vendor_b" \
   --new=13:0:+1M       --change-name=13:"misc" \
   --new=14:0:+16M      --change-name=14:"metadata" \
-  --new=15:0:+8500M    --change-name=15:"super" --partition-guid=15:00000000-0000-0000-0000-000000000000 \
+  --new=15:0:+8500M    --change-name=15:"super" \
   --new=16:0:0         --change-name=16:"userdata" \
   $OUT_IMG
 
