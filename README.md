@@ -1,4 +1,6 @@
-# android_device_qemu
+# android_device_generic_qemu
+
+Copy project to AOSP/device/generic/qemu
 
 
 ```shell
