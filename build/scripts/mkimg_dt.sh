@@ -8,7 +8,7 @@ TARGET_DEVICE=$3
 # Tools
 HOST_OUT=$1/bin
 MKDTIMG=$HOST_OUT/mkdtimg
-DTC=out/host/linux-x86/obj/EXECUTABLES/dtc_intermediates/dtc
+DTC=$HOST_OUT/dtc
 
 # Images
 PRODUCT_OUT=$2
