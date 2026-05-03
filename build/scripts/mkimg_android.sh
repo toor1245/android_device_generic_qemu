@@ -6,6 +6,9 @@ set -e
 HOST_OUT=$1/bin
 SGDISK=$HOST_OUT/sgdisk
 MKE2FS=$HOST_OUT/mke2fs
+MFTOOLS=$HOST_OUT/mtools
+MCOPY=$HOST_OUT/mcopy
+MFORMAT=$HOST_OUT/mformat
 TOYBOX=$HOST_OUT/toybox
 AWK=$HOST_OUT/one-true-awk
 
@@ -26,14 +29,26 @@ VBMETA_VENDOR_IMG=$PRODUCT_OUT/vbmeta_vendor.img
 SUPER_IMG=$PRODUCT_OUT/super.img
 USERDATA_IMG=$PRODUCT_OUT/userdata.img
 METADATA_IMG=$PRODUCT_OUT/metadata.img
-OUT_IMG=$PRODUCT_OUT/android.img
+GBL_EFI=device/generic/qemu/prebuilts/arm64/gbl.efi
+ANDROID_ESP_IMG=$PRODUCT_OUT/android_esp.img
 
+OUT_IMG=$PRODUCT_OUT/android.img
 ANDROID_EMMC_IMG=$PRODUCT_OUT/android_emmc.img
 
 dd if=/dev/zero of=$METADATA_IMG bs=1M count=16
+dd if=/dev/zero of=$ANDROID_ESP_IMG bs=1M count=64
 dd if=/dev/zero of=$OUT_IMG bs=1M count=10240
 
 $MKE2FS -t ext4 -b 4096 -F $METADATA_IMG
+
+# Manually create the mformat symlink if it doesn't exist
+if [ ! -L "$MFORMAT" ]; then
+  echo "Creating mformat symlink..."
+  ln -sf "$MFTOOLS" "$MFORMAT"
+fi
+
+$MFORMAT -i $ANDROID_ESP_IMG -v "ESP" -F
+$MCOPY -i $ANDROID_ESP_IMG $GBL_EFI ::/gbl.efi
 
 $SGDISK \
   --new=1:2048:+1M     --change-name=1:"vbmeta_a" \
@@ -50,8 +65,10 @@ $SGDISK \
   --new=12:0:+1M       --change-name=12:"vbmeta_vendor_b" \
   --new=13:0:+1M       --change-name=13:"misc" \
   --new=14:0:+16M      --change-name=14:"metadata" \
-  --new=15:0:+8500M    --change-name=15:"super" \
-  --new=16:0:0         --change-name=16:"userdata" \
+  --new=15:0:+64M      --change-name=15:"android_esp_a" \
+  --new=16:0:+64M      --change-name=16:"android_esp_b" \
+  --new=17:0:+8500M    --change-name=17:"super" \
+  --new=18:0:0         --change-name=18:"userdata" \
   $OUT_IMG
 
 write_to_partition() {
@@ -70,8 +87,9 @@ write_to_partition 7 $VENDOR_BOOT_IMG
 write_to_partition 9 $VBMETA_SYSTEM_IMG
 write_to_partition 11 $VBMETA_VENDOR_IMG
 write_to_partition 14 $METADATA_IMG
-write_to_partition 15 $SUPER_IMG
-write_to_partition 16 $USERDATA_IMG
+write_to_partition 15 $ANDROID_ESP_IMG
+write_to_partition 17 $SUPER_IMG
+write_to_partition 18 $USERDATA_IMG
 
 $SGDISK --print $OUT_IMG
 

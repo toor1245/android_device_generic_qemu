@@ -22,7 +22,9 @@ PRODUCT_HOST_PACKAGES += \
     one-true-awk \
     lpdump \
     mkdtimg \
-    dtc
+    dtc \
+    mtools \
+    newfs_msdos \
 
 PRODUCT_PACKAGES += \
     aflags \
