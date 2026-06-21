@@ -41,11 +41,8 @@ dd if=/dev/zero of=$OUT_IMG bs=1M count=10240
 
 $MKE2FS -t ext4 -b 4096 -F $METADATA_IMG
 
-# Manually create the mformat symlink if it doesn't exist
-if [ ! -L "$MFORMAT" ]; then
-  echo "Creating mformat symlink..."
-  ln -sf "$MFTOOLS" "$MFORMAT"
-fi
+echo "Ensuring mformat symlink..."
+ln -sf mtools "$MFORMAT"
 
 $MFORMAT -i $ANDROID_ESP_IMG -v "ESP" -F
 $MCOPY -i $ANDROID_ESP_IMG $GBL_EFI ::/gbl.efi
