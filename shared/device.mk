@@ -31,6 +31,7 @@ PRODUCT_PACKAGES += \
     aconfigd-system \
     apexd \
     cgroups.json \
+    casefolding_remover \
     dhcpdbg \
     e2fsck \
     init.environ.rc \
