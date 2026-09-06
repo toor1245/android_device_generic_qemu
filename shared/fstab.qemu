@@ -5,7 +5,7 @@
 system                       /system    ext4 noatime,ro                     wait,logical,first_stage_mount,slotselect,avb=vbmeta_system
 vendor                       /vendor    ext4 noatime,ro                     wait,logical,first_stage_mount,slotselect,avb=vbmeta_vendor
 /dev/block/by-name/userdata  /data      ext4 noatime,nosuid,nodev           wait,check
-/dev/block/by-name/metadata  /metadata  ext4 noatime,nosuid,nodev,discard   wait,formattable,first_stage_mount
+/dev/block/by-name/metadata  /metadata  ext4 noatime,nosuid,nodev,discard   wait,formattable,first_stage_mount,check
 /dev/block/by-name/boot      /boot      emmc defaults                       slotselect,avb=boot,first_stage_mount
 /dev/block/by-name/init_boot /init_boot emmc defaults                       slotselect,avb=init_boot,first_stage_mount
 /dev/block/by-name/misc      /misc      emmc defaults                       wait
