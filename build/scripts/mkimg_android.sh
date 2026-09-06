@@ -30,6 +30,10 @@ SUPER_IMG=$PRODUCT_OUT/super.img
 USERDATA_IMG=$PRODUCT_OUT/userdata.img
 METADATA_IMG=$PRODUCT_OUT/metadata.img
 GBL_EFI=device/generic/qemu/prebuilts/arm64/gbl.efi
+MY_EFI_APP_EFI=device/generic/qemu/prebuilts/arm64/MyEfiApp.efi
+MY_SNP_APP_EFI=device/generic/qemu/prebuilts/arm64/MySnpApp.efi
+SNP_SERVER_TEST_EFI=device/generic/qemu/prebuilts/arm64/SnpServerTest.efi
+
 ANDROID_ESP_IMG=$PRODUCT_OUT/android_esp.img
 
 OUT_IMG=$PRODUCT_OUT/android.img
@@ -46,6 +50,9 @@ ln -sf mtools "$MFORMAT"
 
 $MFORMAT -i $ANDROID_ESP_IMG -v "ESP" -F
 $MCOPY -i $ANDROID_ESP_IMG $GBL_EFI ::/gbl.efi
+$MCOPY -i $ANDROID_ESP_IMG $MY_EFI_APP_EFI ::/MyEfiApp.efi
+$MCOPY -i $ANDROID_ESP_IMG $MY_SNP_APP_EFI ::/MySnpApp.efi
+$MCOPY -i $ANDROID_ESP_IMG $SNP_SERVER_TEST_EFI ::/SnpServerTest.efi
 
 $SGDISK \
   --new=1:2048:+1M     --change-name=1:"vbmeta_a" \
@@ -90,4 +97,4 @@ write_to_partition 18 $USERDATA_IMG
 
 $SGDISK --print $OUT_IMG
 
-$MKEMMC -r /dev/zero:2M $OUT_IMG $ANDROID_EMMC_IMG
+$MKEMMC -r /dev/zero:16M $OUT_IMG $ANDROID_EMMC_IMG
