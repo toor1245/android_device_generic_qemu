@@ -83,7 +83,7 @@ BOARD_QEMU_DYNAMIC_PARTITIONS_PARTITION_LIST := \
     system \
     vendor \
 #
-# Enable chained vbmeta for system images
+# Enable chained vbmeta for system image
 #
 
 BOARD_AVB_VBMETA_SYSTEM := system
@@ -95,10 +95,13 @@ BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
 #
 # system image
 #
+
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 
+#
+# Enable chained vbmeta for boot image
+#
 
-# Enable chained vbmeta for boot images
 BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_BOOT_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
@@ -107,7 +110,7 @@ BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
 
 #
-# Enable chained vbmeta for vendor images
+# Enable chained vbmeta for vendor image
 #
 
 BOARD_AVB_VBMETA_VENDOR := vendor
@@ -117,7 +120,7 @@ BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX_LOCATION := 3
 
 #
-# Enable chained vbmeta for init_boot images
+# Enable chained vbmeta for init_boot image
 #
 
 BOARD_AVB_INIT_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
