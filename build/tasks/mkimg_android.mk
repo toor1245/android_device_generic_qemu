@@ -16,8 +16,17 @@ $(QEMU_DTB_IMG): $(QEMU_DTS_SRC) $(MKDTIMG_TOOL) $(DTC_TOOL) $(MCOPY_TOOL) $(NEW
 
 $(INSTALLED_VENDOR_BOOTIMAGE_TARGET): $(QEMU_DTB_IMG)
 
+MKIMG_ANDROID_HOST_TOOLS := $(addprefix $(HOST_OUT_EXECUTABLES)/, \
+    sgdisk \
+    mke2fs \
+    mtools \
+    mcopy \
+    toybox \
+    one-true-awk \
+)
+
 .PHONY: androidimage
-androidimage: systemimage vendorimage userdataimage $(QEMU_DTB_IMG)
+androidimage: systemimage vendorimage userdataimage $(QEMU_DTB_IMG) $(MKIMG_ANDROID_HOST_TOOLS)
 	$(DEVICE_PATH)/build/scripts/mkimg_android.sh \
 	$(HOST_OUT) \
 	$(PRODUCT_OUT)
