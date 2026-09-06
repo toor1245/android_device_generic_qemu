@@ -1,0 +1,21 @@
+on boot
+    start ifconfig_eth0
+    start console
+    setprop service.adb.tcp.port 5555
+    start adbd
+
+service console /system/bin/sh
+    class default
+    console
+    disabled
+    user root
+    group root shell log
+    seclabel u:r:su:s0
+
+service ifconfig_eth0 /system/bin/ifconfig eth0 10.0.2.15 netmask 255.255.255.0 up
+    class default
+    oneshot
+    disabled
+    user root
+    group root
+    seclabel u:r:su:s0
