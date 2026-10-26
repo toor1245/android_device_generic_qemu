@@ -1,0 +1,4 @@
+service vendor.oemlock-optee /vendor/bin/hw/android.hardware.oemlock-service.optee
+    class hal
+    user system
+    group system
