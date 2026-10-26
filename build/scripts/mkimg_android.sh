@@ -35,13 +35,15 @@ MY_SNP_APP_EFI=device/generic/qemu/prebuilts/arm64/MySnpApp.efi
 SNP_SERVER_TEST_EFI=device/generic/qemu/prebuilts/arm64/SnpServerTest.efi
 
 ANDROID_ESP_IMG=$PRODUCT_OUT/android_esp.img
+EMMC_IMG=$PRODUCT_OUT/emmc.img
+RPMB_IMG=$PRODUCT_OUT/rpmb.img
 
 OUT_IMG=$PRODUCT_OUT/android.img
-ANDROID_EMMC_IMG=$PRODUCT_OUT/android_emmc.img
 
 dd if=/dev/zero of=$METADATA_IMG bs=1M count=16
 dd if=/dev/zero of=$ANDROID_ESP_IMG bs=1M count=64
 dd if=/dev/zero of=$OUT_IMG bs=1M count=10240
+dd if=/dev/zero of=$EMMC_IMG bs=1M count=32
 
 $MKE2FS -t ext4 -b 4096 -F $METADATA_IMG
 
@@ -97,4 +99,4 @@ write_to_partition 18 $USERDATA_IMG
 
 $SGDISK --print $OUT_IMG
 
-$MKEMMC -r /dev/zero:16M $OUT_IMG $ANDROID_EMMC_IMG
+$MKEMMC -r /dev/zero:16M $EMMC_IMG $RPMB_IMG
