@@ -38,6 +38,8 @@ BOARD_PREBUILT_DTBIMAGE := $(PRODUCT_OUT)/$(TARGET_DEVICE)_dtb.img
 
 BOARD_KERNEL_CMDLINE += init=/init
 BOARD_KERNEL_CMDLINE += printk.devkmsg=on
+BOARD_KERNEL_CMDLINE += mitigations=off
+BOARD_KERNEL_CMDLINE += init_on_alloc=0
 
 #
 # Bootconfig
