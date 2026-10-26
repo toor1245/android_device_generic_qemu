@@ -134,6 +134,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     dhcpclient \
 
+# OP-TEE
+PRODUCT_PACKAGES += \
+    libteec \
+
+PRODUCT_COPY_FILES += \
+    device/generic/qemu/shared/ueventd.qemu.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc \
+
 # Creates metadata partition mount point under root for
 # the devices with metadata partition
 BOARD_USES_METADATA_PARTITION := true

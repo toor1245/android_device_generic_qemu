@@ -1,0 +1,15 @@
+cc_library_static {
+    name: "libavb_optee",
+    srcs: [
+        "src/ta_avb.c",
+    ],
+    export_include_dirs: ["include"],
+    shared_libs: [
+        "libteec"
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+    vendor: true,
+}
