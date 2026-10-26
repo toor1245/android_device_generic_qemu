@@ -9,3 +9,10 @@ rust_binary {
     static_libs: ["libavb_optee"],
     shared_libs: ["libteec"],
 }
+
+rust_binary {
+    name: "oemlock-cli",
+    vendor: true,
+    srcs: ["client/main.rs"],
+    rustlibs: ["libbinder_rs", "android.hardware.oemlock-V1-rust"],
+}

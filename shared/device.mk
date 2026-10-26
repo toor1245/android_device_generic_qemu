@@ -139,6 +139,9 @@ PRODUCT_PACKAGES += \
     libteec \
     android.hardware.oemlock-service.optee \
 
+PRODUCT_PACKAGES_DEBUG += \
+    oemlock-cli \
+
 PRODUCT_COPY_FILES += \
     device/generic/qemu/shared/ueventd.qemu.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc \
 

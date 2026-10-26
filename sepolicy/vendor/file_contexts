@@ -11,5 +11,6 @@
 
 /vendor/bin/hw/android\.hardware\.oemlock-service\.optee    u:object_r:hal_oemlock_default_exec:s0
 /vendor/bin/dhcpclient                                     u:object_r:dhcpclient_exec:s0
+/vendor/bin/oemlock-cli                                    u:object_r:oemlock_cli_exec:s0
 
 /dev/tee0                                                  u:object_r:tee_device:s0
