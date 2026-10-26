@@ -1,0 +1,1 @@
+type sysfs_virtio_block, sysfs_type, fs_type;

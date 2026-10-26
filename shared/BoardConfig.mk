@@ -49,6 +49,8 @@ BOARD_BOOTCONFIG += androidboot.selinux=permissive
 BOARD_BOOTCONFIG += androidboot.fstab_suffix=qemu
 BOARD_BOOTCONFIG += androidboot.hardware=qemu
 
+BOARD_VENDOR_SEPOLICY_DIRS += device/generic/qemu/sepolicy/vendor
+
 #
 # Android Verified Boot (AVB)
 #
