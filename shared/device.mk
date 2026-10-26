@@ -39,6 +39,7 @@ PRODUCT_PACKAGES += \
     cgroups.json \
     casefolding_remover \
     dhcpdbg \
+    dmctl \
     e2fsck \
     init.environ.rc \
     init_vendor \
@@ -63,6 +64,7 @@ PRODUCT_PACKAGES += \
     toybox \
     odsign \
     selinux_policy \
+    snapshotctl \
     sh \
     su \
     servicemanager \
@@ -95,6 +97,7 @@ PRODUCT_PACKAGES += \
     watchdogd.recovery \
     resize2fs.vendor_ramdisk \
     tune2fs.vendor_ramdisk \
+    android.hardware.boot-service.default_recovery \
 
 PRODUCT_COPY_FILES += \
     device/generic/qemu/shared/init.recovery.qemu.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.qemu.rc
@@ -102,8 +105,10 @@ PRODUCT_COPY_FILES += \
 # OTA packages
 PRODUCT_PACKAGES += \
     update_engine \
+    update_engine_client \
     update_engine_sideload \
     update_verifier \
+    gsid \
     bootctl \
     com.android.hardware.boot \
 
