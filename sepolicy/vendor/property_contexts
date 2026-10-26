@@ -1,0 +1,5 @@
+vendor.net.eth0.gw      u:object_r:vendor_net_eth0_prop:s0 exact string
+vendor.net.eth0.dns1    u:object_r:vendor_net_eth0_prop:s0 exact string
+vendor.net.eth0.dns2    u:object_r:vendor_net_eth0_prop:s0 exact string
+vendor.net.eth0.dns3    u:object_r:vendor_net_eth0_prop:s0 exact string
+vendor.net.eth0.dns4    u:object_r:vendor_net_eth0_prop:s0 exact string

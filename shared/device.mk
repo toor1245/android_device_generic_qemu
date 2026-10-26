@@ -131,6 +131,9 @@ PRODUCT_PACKAGES += \
     vendor_compatibility_matrix.xml \
     vendor_manifest.xml \
 
+PRODUCT_PACKAGES += \
+    dhcpclient \
+
 # Creates metadata partition mount point under root for
 # the devices with metadata partition
 BOARD_USES_METADATA_PARTITION := true

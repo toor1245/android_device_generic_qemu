@@ -9,9 +9,7 @@ on boot
 
     exec_start update_verifier
 
-service dhcp_eth0 /system/bin/dhcpdbg eth0
+service dhcp_eth0 /vendor/bin/dhcpclient -i eth0
     class core
-    oneshot
     user root
     group root
-    seclabel u:r:su:s0
