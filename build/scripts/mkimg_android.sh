@@ -73,7 +73,7 @@ $SGDISK \
   --new=14:0:+16M      --change-name=14:"metadata" \
   --new=15:0:+64M      --change-name=15:"android_esp_a" \
   --new=16:0:+64M      --change-name=16:"android_esp_b" \
-  --new=17:0:+8500M    --change-name=17:"super" \
+  --new=17:0:+8136M    --change-name=17:"super" \
   --new=18:0:0         --change-name=18:"userdata" \
   $OUT_IMG
 
