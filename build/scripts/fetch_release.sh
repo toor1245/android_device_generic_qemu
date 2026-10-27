@@ -73,6 +73,7 @@ if [ -n "$WANT_IMAGES" ]; then
 fi
 
 if [ -n "$WANT_PREBUILTS" ]; then
+  mkdir -p "$PREBUILTS_DIR"
   for f in $PREBUILTS; do
     download "$f.xz"
     xz -dc "$TMP/$f.xz" > "$PREBUILTS_DIR/$f"
