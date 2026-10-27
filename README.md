@@ -14,11 +14,19 @@ Packs a freshly built, never booted product into `$ANDROID_PRODUCT_OUT/release`:
 device/generic/qemu/build/scripts/mkrelease.sh
 ```
 
-Upload every file in that directory as assets of a GitHub release.
+Then upload it as a draft GitHub release and pin it in `prebuilts/arm64/release.lock`
+(needs the GitHub CLI, logged in with `gh auth login`):
+
+```shell
+device/generic/qemu/build/scripts/push_release.sh qemu-arm64-YYYY-MM-DD
+```
+
+Check and publish the draft on GitHub, then commit `release.lock`.
 
 ## Fetch
 
-Downloads the latest release and checks it against `SHA256SUMS`:
+Downloads the release pinned in `prebuilts/arm64/release.lock` and checks it
+against the checksums there:
 
 ```shell
 # kernel and gbl.efi into prebuilts/arm64, needed by m

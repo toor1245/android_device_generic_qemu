@@ -3,7 +3,7 @@
 set -e
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-PREBUILTS_DIR=$SCRIPT_DIR/../../prebuilts/arm64
+PREBUILTS_DIR=$(cd "$SCRIPT_DIR/../.." && pwd)/prebuilts/arm64
 PREBUILTS="android16-6.13.img gbl.efi"
 
 usage() {

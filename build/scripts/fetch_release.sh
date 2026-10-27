@@ -3,7 +3,7 @@
 set -e
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-PREBUILTS_DIR=$SCRIPT_DIR/../../prebuilts/arm64
+PREBUILTS_DIR=$(cd "$SCRIPT_DIR/../.." && pwd)/prebuilts/arm64
 PREBUILTS="android16-6.13.img gbl.efi"
 IMAGES="android.qcow2 emmc.qcow2"
 
@@ -13,14 +13,16 @@ BASE_URL=${BASE_URL:-https://github.com/$REPO/releases}
 usage() {
   echo "usage: $0 [-t TAG] [-o IMAGES_DIR] images|prebuilts|all"
   echo
-  echo "Downloads release assets and checks them against SHA256SUMS."
+  echo "Downloads release assets and checks their SHA-256."
   echo "  images     android.qcow2 and emmc.qcow2 into IMAGES_DIR (default: .)"
   echo "  prebuilts  the kernel and gbl.efi into prebuilts/arm64, needed by m"
-  echo "TAG defaults to the latest release."
+  echo "Without -t, the release and checksums pinned in prebuilts/arm64/release.lock"
+  echo "are used. With -t, the checksums come from the release's SHA256SUMS."
   exit 1
 }
 
-TAG=latest
+LOCK=$PREBUILTS_DIR/release.lock
+TAG=
 IMAGES_DIR=.
 while getopts "t:o:h" opt; do
   case $opt in
@@ -39,14 +41,15 @@ case $1 in
   *) usage ;;
 esac
 
-if [ "$TAG" = latest ]; then
-  URL=$BASE_URL/latest/download
-else
-  URL=$BASE_URL/download/$TAG
-fi
-
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
+
+if [ -z "$TAG" ]; then
+  [ -f "$LOCK" ] || { echo "missing $LOCK, pass -t TAG" >&2; exit 1; }
+  TAG=$(awk '$1 == "tag" {print $2}' "$LOCK")
+  grep -v '^tag ' "$LOCK" > "$TMP/SHA256SUMS"
+fi
+URL=$BASE_URL/download/$TAG
 
 download() {
   echo "Downloading $1..."
@@ -57,7 +60,7 @@ download() {
   fi
 }
 
-download SHA256SUMS
+[ -f "$TMP/SHA256SUMS" ] || download SHA256SUMS
 
 if [ -n "$WANT_IMAGES" ]; then
   mkdir -p "$IMAGES_DIR"
@@ -76,6 +79,7 @@ if [ -n "$WANT_PREBUILTS" ]; then
   mkdir -p "$PREBUILTS_DIR"
   for f in $PREBUILTS; do
     download "$f.xz"
-    xz -dc "$TMP/$f.xz" > "$PREBUILTS_DIR/$f"
+    xz -dc "$TMP/$f.xz" > "$TMP/$f"
+    mv "$TMP/$f" "$PREBUILTS_DIR/$f"
   done
 fi
